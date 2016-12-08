@@ -1,6 +1,12 @@
 /*jshint node:true*/
 /* global require, module */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+var Filter = require('broccoli-filter');
+var debugTree = require('broccoli-stew').debug;
+
+function Note(inputNode) {
+    Filter.call(this, inputNode);
+}
 
 module.exports = function(defaults) {
     var app = new EmberApp(defaults, {
@@ -20,5 +26,19 @@ module.exports = function(defaults) {
     // please specify an object with the list of modules as keys
     // along with the exports of each module as its value.
 
-    return app.toTree();
+    Note.prototype = Object.create(Filter.prototype);
+    Note.prototype.processString = function(existingString) {
+        return `/**
+            * vendor.js
+            *
+            * (c) 2016 🦄🦄🦄🔫🌈🍺🍺 All Rights Reserved
+            * generated at: ${ new Date().toISOString() }
+            */
+
+            ${existingString}`;
+    };
+    Note.prototype.extensions = ['js'];
+    Note.prototype.targetExtension = 'js';
+
+    return new Note(app.toTree());
 };
