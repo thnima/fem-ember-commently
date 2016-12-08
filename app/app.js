@@ -13,6 +13,14 @@ App = Ember.Application.extend({
   Resolver
 });
 
+define('math', [], function() {
+    return {
+        default: Math,
+        PI: Math.PI
+    } 
+
+});
+
 loadInitializers(App, config.modulePrefix);
 
 export default App;
