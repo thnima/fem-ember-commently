@@ -5,6 +5,7 @@ const { Route, inject } = Ember;
 
 export default Route.extend(ApplicationRouteMixin, {
     session: inject.service(),
+
     actions: {
         logout() {
             this.get('session').invalidate();
@@ -13,5 +14,11 @@ export default Route.extend(ApplicationRouteMixin, {
     beforeModel() {
         this._super(...arguments);
         console.log(math, PI);
+    },
+
+    setupController(controller) {
+      this._super(...arguments);
+      const coords = Ember.getOwner(this).lookup('data:location');
+      controller.set('coords', coords);
     }
 });
