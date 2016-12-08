@@ -17,8 +17,7 @@ define('math', [], function() {
     return {
         default: Math,
         PI: Math.PI
-    } 
-
+    } ;
 });
 
 loadInitializers(App, config.modulePrefix);
